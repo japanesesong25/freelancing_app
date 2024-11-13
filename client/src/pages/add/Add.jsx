@@ -13,6 +13,8 @@ const Add = () => {
 
   const [state, dispatch] = useReducer(gigReducer, INITIAL_STATE);
 
+  const userId = JSON.parse(localStorage.getItem("currentUser"))?._id;
+
   const handleChange = (e) => {
     dispatch({
       type: "CHANGE_INPUT",
@@ -60,9 +62,10 @@ const Add = () => {
   });
 
   const handleSubmit = (e) => {
+    dispatch({ type: "CHANGE_USER", payload: {userId} });
     e.preventDefault();
     mutation.mutate(state);
-    // navigate("/mygigs")
+    //navigate("/mygigs")
   };
 
   return (

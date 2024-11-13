@@ -1,5 +1,5 @@
 export const INITIAL_STATE = {
-  userId: JSON.parse(localStorage.getItem("currentUser"))?._id,
+  userId: "",
   title: "",
   cat: "",
   cover: "",
@@ -15,6 +15,11 @@ export const INITIAL_STATE = {
 
 export const gigReducer = (state, action) => {
   switch (action.type) {
+    case "CHANGE_USER":
+      return{
+        ...state,
+        userId: action.payload.userId
+      }
     case "CHANGE_INPUT":
       return {
         ...state,
