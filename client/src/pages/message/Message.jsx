@@ -10,12 +10,13 @@ const Message = () => {
 
   const queryClient = useQueryClient();
 
-  const { isLoading, error, data } = useQuery({
+  const { isLoading, error, data, refetch } = useQuery({
     queryKey: ["messages"],
     queryFn: () =>
       newRequest.get(`/messages/${id}`).then((res) => {
         return res.data;
       }),
+      refetchInterval: 5000
   });
 
   const mutation = useMutation({
@@ -40,7 +41,7 @@ const Message = () => {
     <div className="message">
       <div className="container">
         <span className="breadcrumbs">
-          <Link to="/messages">Messages</Link> > John Doe >
+          <Link to="/messages">Messages</Link>
         </span>
         {isLoading ? (
           "loading"
