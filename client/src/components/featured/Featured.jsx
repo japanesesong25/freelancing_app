@@ -21,19 +21,13 @@ function Featured() {
               <img src="./img/search.png" alt="" />
               <input
                 type="text"
-                placeholder='Try "building mobil app"'
+                placeholder='Try "building mobile app"'
                 onChange={(e) => setInput(e.target.value)}
               />
             </div>
             <button onClick={handleSubmit}>Search</button>
           </div>
-          <div className="popular">
-            <span>Popular:</span>
-            <button>Web Design</button>
-            <button>WordPress</button>
-            <button>Logo Design</button>
-            <button>AI Services</button>
-          </div>
+    
         </div>
         <div className="right">
           <img src="./img/man.png" alt="" />

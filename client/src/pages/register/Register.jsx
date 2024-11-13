@@ -33,11 +33,11 @@ function Register() {
     e.preventDefault();
     console.log(user)
 
-    //const url = await upload(file);
+    const url = await upload(file);
     try {
       await newRequest.post("/auth/register", {
         ...user,
-        //img: url,
+        img: url,
       });
       navigate("/")
     } catch (err) {

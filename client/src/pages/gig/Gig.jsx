@@ -41,9 +41,7 @@ function Gig() {
       ) : (
         <div className="container">
           <div className="left">
-            <span className="breadcrumbs">
-              Fiverr {">"} Graphics & Design {">"}
-            </span>
+
             <h1>{data.title}</h1>
             {isLoadingUser ? (
               "loading"
