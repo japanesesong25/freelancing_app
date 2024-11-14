@@ -37,7 +37,6 @@ function Home() {
     <div className="home">
       <Featured />
       {gigs.length > 0 ? (
-
         <Slide slidesToShow={3} arrowsScroll={1}>
           {gigs.map((gig) => (
             <GigCard item={gig} />

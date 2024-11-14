@@ -13,12 +13,11 @@ function Footer() {
           </div>
           <div className="right">
             <div className="social">
-              <img src="/img/twitter.png" alt="" />
-              
-              <img src="/img/facebook.png" alt="" />
-              <img src="/img/linkedin.png" alt="" />
-              <img src="/img/pinterest.png" alt="" />
-              <img src="/img/instagram.png" alt="" />
+              <a href = "https://x.com/"><img src="/img/twitter.png" alt="" /></a>
+              <a href = "https://www.facebook.com/"><img src="/img/facebook.png" alt="" /></a>
+              <a href = "https://www.linkedin.com/"><img src="/img/linkedin.png" alt="" /></a> 
+              <a href = "https://www.pinterest.com/"><img src="/img/pinterest.png" alt="" /></a>
+              <a href = "https://www.instagram.com/"><img src="/img/instagram.png" alt="" /></a>
             </div>
      
           </div>

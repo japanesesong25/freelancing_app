@@ -39,29 +39,72 @@ export const getGig = async (req, res, next) => {
     next(err);
   }
 };
-export const getGigs = async (req, res, next) => {
-  const q = req.query;
 
-  const filters = {
-    ...(q.userId && { userId: q.userId }),
-    ...(q.cat && { cat: q.cat }),
-    ...((q.min || q.max) && {
-      price: {
-        ...(q.min && { $gt: q.min }),
-        ...(q.max && { $lt: q.max }),
-      },
-    }),
-    ...(q.search && { title: { $regex: q.search, $options: "i" } }),
-    //...(q.search && {features: q.search})
-  };
-
+export const getMyGigs =  async(req, res, next) => {
   try {
-    const gigs = await Gig.find(filters).sort({ [q.sort]: -1 });
-    res.status(200).send(gigs);
+    const gig = await Gig.find({userId: req.query.userId});
+    res.json(gig);
   } catch (err) {
-    console.log(err)
     next(err);
   }
+}
+
+export const getGigs = async (req, res, next) => { 
+
+  const { search, min, max } = req.query;
+
+  const query = {};
+
+  if (search) {
+    query.$or = [
+      { title: { $regex: new RegExp(search, 'i') } },
+      { features: { $in: search.split(',') } },
+      { cat: { $regex: new RegExp(search, 'i') } }
+    ];
+  }
+
+  if (min || max) {
+    query.price = {};
+
+    if (min) {
+      query.price.$gte = parseFloat(min);
+    }
+
+    if (max) {
+      query.price.$lte = parseFloat(max);
+    }
+  }
+
+  try {
+    const gig = await Gig.find(query);
+    res.json(gig);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+
+
+
+  // const filters = {
+  //   ...(q.userId && { userId: q.userId }),
+  //   ...(q.cat && { cat: q.cat }),
+  //   ...((q.min || q.max) && {
+  //     price: {
+  //       ...(q.min && { $gt: q.min }),
+  //       ...(q.max && { $lt: q.max }),
+  //     },
+  //   }),
+  //   ...(q.search && { title: { $regex: q.search, $options: "i" } }),
+  //   //...(q.search && {features: q.search})
+  // };
+
+  // try {
+  //   const gigs = await Gig.find(filters).sort({ [q.sort]: -1 });
+  //   res.status(200).send(gigs);
+  // } catch (err) {
+  //   console.log(err)
+  //   next(err);
+  // }
 };
 
 export const getHomePageGigs = async(req, res, next) => {
