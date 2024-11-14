@@ -82,8 +82,9 @@ function Home() {
               just project-based pricing.
             </p>
           </div>
+          
           <div className="item">
-            <video src="https://www.youtube.com/watch?v=NA6Baz79LlE" controls />
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/10FCGiIIa_U" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </div>
         </div>
       </div>
