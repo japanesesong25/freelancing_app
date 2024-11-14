@@ -2,7 +2,8 @@
   display: flex;
   justify-content: center;
   color: #666;
-  margin: 50px 0px;
+  margin: 10px 0px;
+  max-height: 10vh;
 
   img {
     width: 24px;
@@ -10,7 +11,7 @@
   }
 
   .container {
-    width: 1400px;
+    width: 100%;
     .top {
       display: flex;
       justify-content: space-between;
@@ -29,7 +30,7 @@
     }
 
     hr {
-      margin: 50px 0px;
+      margin: 10px 0px;
       height: 0;
       border: 1px solid #ebe9e9;
     }

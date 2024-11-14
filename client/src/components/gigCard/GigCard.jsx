@@ -28,17 +28,17 @@ const GigCard = ({ item }) => {
             </div>
           )}
           <p>{item.desc}</p>
-          <div className="star">
+          {/* <div className="star">
             <img src="./img/star.png" alt="" />
             <span>
               {!isNaN(item.totalStars / item.starNumber) &&
                 Math.round(item.totalStars / item.starNumber)}
             </span>
-          </div>
+          </div> */}
         </div>
         <hr />
         <div className="detail">
-          <img src="./img/heart.png" alt="" />
+          {/* <img src="./img/heart.png" alt="" /> */}
           <div className="price">
             <span>STARTING AT</span>
             <h2>$ {item.price}</h2>

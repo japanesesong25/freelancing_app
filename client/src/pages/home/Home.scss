@@ -40,6 +40,15 @@
       }
     }
 
+    .gigs{
+      display: flex;
+      overflow-x: scroll; /* Horizontal scrolling */
+      white-space: nowrap; /* Prevent items from wrapping to the next line */
+      gap: 10px; /* Space between items */
+      padding: 10px;
+    }
+
+
     .container {
       width: 100%;
       display: flex;
