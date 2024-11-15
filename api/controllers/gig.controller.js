@@ -67,10 +67,12 @@ export const getGigs = async (req, res, next) => {
     query.price = {};
 
     if (min) {
+      //greater than equals
       query.price.$gte = parseFloat(min);
     }
 
     if (max) {
+      //less than equals
       query.price.$lte = parseFloat(max);
     }
   }
