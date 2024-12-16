@@ -1,4 +1,6 @@
 import Gig from "../models/gig.model.js";
+import searchHistoryModel from "../models/searchHistory.model.js";
+
 import createError from "../utils/createError.js";
 
 export const createGig = async (req, res, next) => {
@@ -14,7 +16,7 @@ export const createGig = async (req, res, next) => {
     const savedGig = await newGig.save();
     res.status(201).json(savedGig);
   } catch (err) {
-    console.log(err)
+    console.log(err);
     next(err);
   }
 };
@@ -40,26 +42,25 @@ export const getGig = async (req, res, next) => {
   }
 };
 
-export const getMyGigs =  async(req, res, next) => {
+export const getMyGigs = async (req, res, next) => {
   try {
-    const gig = await Gig.find({userId: req.query.userId});
+    const gig = await Gig.find({ userId: req.query.userId });
     res.json(gig);
   } catch (err) {
     next(err);
   }
-}
+};
 
-export const getGigs = async (req, res, next) => { 
-
+export const getGigs = async (req, res, next) => {
   const { search, min, max } = req.query;
 
   const query = {};
 
   if (search) {
     query.$or = [
-      { title: { $regex: new RegExp(search, 'i') } },
-      { features: { $in: search.split(',') } },
-      { cat: { $regex: new RegExp(search, 'i') } }
+      { title: { $regex: new RegExp(search, "i") } },
+      { features: { $in: search.split(",") } },
+      { cat: { $regex: new RegExp(search, "i") } },
     ];
   }
 
@@ -82,10 +83,8 @@ export const getGigs = async (req, res, next) => {
     res.json(gig);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: "Internal server error" });
   }
-
-
 
   // const filters = {
   //   ...(q.userId && { userId: q.userId }),
@@ -109,14 +108,75 @@ export const getGigs = async (req, res, next) => {
   // }
 };
 
-export const getHomePageGigs = async(req, res, next) => {
-  
+export const getHomePageGigs = async (req, res, next) => {
   try {
-    const gigs = await Gig.find().limit(10)
+    const gigs = await Gig.find().limit(10);
     res.status(200).send(gigs);
   } catch (err) {
-    console.log(err)
+    console.log(err);
     next(err);
   }
+};
 
-}
+export const saveHistory = async (req, res, next) => {
+  const saveBody = req.body;
+
+  const userId = req.body.userId;
+
+  const searchTerm = req.body.keyword;
+
+  try {
+    const searchHistory = await searchHistoryModel.findOne({ "userId": userId });
+
+    console.log(searchHistory)
+
+    if (searchHistory) {
+      //yo user k lagi data nai chaina bhaneko insert hannu paryo
+
+      await searchHistoryModel.findOneAndUpdate(
+        { userId: userId },
+        {
+          $addToSet: { searches: searchTerm },
+          $set: { lastUpdated: new Date() },
+        },
+        { new: true, upsert: false }
+      );
+
+      console.log(
+        "Search term: " +
+          searchTerm +
+          "Update successfully for user Id: " +
+          userId
+      );
+    } else {
+      //yo user ko lai data cha udpate hannu paryo
+
+      const arr = [];
+      arr.push(searchTerm);
+
+      const searchModel = new searchHistoryModel({
+        userId: userId,
+        searches: arr,
+        lastUpdated: new Date(),
+      });
+
+      await searchModel.save();
+
+      console.log(
+        "New Document saved for search term: " +
+          searchTerm +
+          "for userId: " +
+          userId
+      );
+    }
+
+    res.status(200).json({
+      "message": "Search Term Saved",
+      "satuts": "Success"
+    })
+
+  } catch (e) {
+    console.log(e);
+    res.status(500);
+  }
+};

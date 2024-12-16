@@ -5,7 +5,8 @@ import {
   getGig,
   getGigs,
   getHomePageGigs,
-  getMyGigs
+  getMyGigs,
+  saveHistory
 } from "../controllers/gig.controller.js";
 import { verifyToken } from "../middleware/jwt.js";
 
@@ -17,5 +18,6 @@ router.get("/single/:id", getGig);
 router.get("/homePage", getHomePageGigs);
 router.get("/myGigs", getMyGigs);
 router.get("/", getGigs);
+router.post("/saveHistory", saveHistory)
 
 export default router;

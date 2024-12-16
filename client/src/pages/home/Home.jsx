@@ -4,6 +4,7 @@ import Featured from "../../components/featured/Featured";
 import CatCard from "../../components/catCard/CatCard";
 import newRequest from "../../utils/newRequest";
 import GigCard from "../../components/gigCard/GigCard";
+import axios from "axios";
 
 
   
@@ -16,11 +17,14 @@ function Home() {
   const [gigs, setGigs] = useState([])
   const [gigLoaded, setGigLoaded] = useState(false)
 
+  const userId = JSON.parse(localStorage.getItem("currentUser"))?._id;
+
+
   useEffect(() => {
 
     const fetchData = async() => {
       try{
-        const res = await newRequest.get("/gigs/homePage")
+        const res = await axios.get(`http://localhost:8000/recommendations/${userId}`)
         setGigs(res.data)
   
       }

@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 import "./Featured.scss";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import newRequest from "../../utils/newRequest";
 
 function Featured() {
   const [input, setInput] = useState("");
   const navigate = useNavigate();
+  const userId = JSON.parse(localStorage.getItem("currentUser"))?._id;
 
-  const handleSubmit = () => {
+
+  const handleSubmit = async () => {
+   await newRequest.post(`/gigs/saveHistory`, {
+      keyword: input,
+      userId: userId
+    })
     navigate(`/gigs?search=${input}`);
   };
   return (

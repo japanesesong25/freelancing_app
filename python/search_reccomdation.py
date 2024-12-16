@@ -42,3 +42,5 @@ history = [
 query = "project management"
 search_results = semantic_search(history, query)
 print(search_results)
+
+#pip install -r requirements.txt
