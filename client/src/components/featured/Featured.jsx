@@ -28,6 +28,7 @@ function Featured() {
             <div className="searchInput">
               <img src="./img/search.png" alt="" />
               <input
+              className="search-input"
                 type="text"
                 placeholder='Try "building mobile app"'
                 onChange={(e) => setInput(e.target.value)}

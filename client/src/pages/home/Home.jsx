@@ -32,18 +32,25 @@ function Home() {
   return (
     <div className="home">
       <Featured />
-      {gigs.length > 0 ? (
-        <div className="carousel-container">
-          <div className="carousel">
-            {gigs.map((gig) => (
-              <div className="carousel-items">
-                <GigCard item={gig} />
+      {userId !== undefined ? (
+        <>
+          <h3>TOP RECOMMENDATIONS</h3>
+          {gigs.length > 0 ? (
+            <div className="carousel-container">
+              <div className="carousel">
+                {gigs.map((gig) => (
+                  <div className="carousel-items">
+                    <GigCard item={gig} />
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
+            </div>
+          ) : (
+            <p>Loading data...</p>
+          )}
+        </>
       ) : (
-        <p>Loading data...</p>
+        <div></div>
       )}
 
       <div className="features">

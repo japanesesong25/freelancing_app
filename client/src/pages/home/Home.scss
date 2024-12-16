@@ -108,13 +108,14 @@
   }
 
   .carousel-container{
-    width: 100%; /* Adjust the width of the container */
+    width: 92%; /* Adjust the width of the container */
     overflow-x: auto; /* Enable horizontal scrolling */
     border: 2px solid #ccc;
     border-radius: 10px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     padding: 20px;
     margin-top: 2rem;
+    margin-left: 2rem;
   }
 
   .carousel-container::-webkit-scrollbar {
