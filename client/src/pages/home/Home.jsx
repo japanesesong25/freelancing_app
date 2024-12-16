@@ -6,49 +6,46 @@ import newRequest from "../../utils/newRequest";
 import GigCard from "../../components/gigCard/GigCard";
 import axios from "axios";
 
-
-  
-const Slide = lazy(() => import('../../components/slide/Slide'));
-    
-
+const Slide = lazy(() => import("../../components/slide/Slide"));
 
 function Home() {
-
-  const [gigs, setGigs] = useState([])
-  const [gigLoaded, setGigLoaded] = useState(false)
+  const [gigs, setGigs] = useState([]);
+  const [gigLoaded, setGigLoaded] = useState(false);
 
   const userId = JSON.parse(localStorage.getItem("currentUser"))?._id;
 
-
   useEffect(() => {
-
-    const fetchData = async() => {
-      try{
-        const res = await axios.get(`http://localhost:8000/recommendations/${userId}`)
-        setGigs(res.data)
-  
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:8000/recommendations/${userId}`
+        );
+        setGigs(res.data);
+      } catch (e) {
+        console.log(err);
       }
-      catch(e){
-        console.log(err)
-      }
-    }
+    };
 
     fetchData();
-  }, [])
-
+  }, []);
 
   return (
     <div className="home">
       <Featured />
       {gigs.length > 0 ? (
-        <Slide slidesToShow={3} arrowsScroll={1}>
-          {gigs.map((gig) => (
-            <GigCard item={gig} />
-          ))}
-        </Slide>
-      ):  <p>Loading data...</p>
-      }
-     
+        <div className="carousel-container">
+          <div className="carousel">
+            {gigs.map((gig) => (
+              <div className="carousel-items">
+                <GigCard item={gig} />
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <p>Loading data...</p>
+      )}
+
       <div className="features">
         <div className="container">
           <div className="item">
@@ -86,9 +83,16 @@ function Home() {
               just project-based pricing.
             </p>
           </div>
-          
+
           <div className="item">
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/10FCGiIIa_U" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe
+              width="560"
+              height="315"
+              src="https://www.youtube.com/embed/10FCGiIIa_U"
+              frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
           </div>
         </div>
       </div>
